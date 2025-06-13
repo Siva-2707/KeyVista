@@ -3,8 +3,7 @@ package com.siva.keyvista.security.controller;
 
 import com.siva.keyvista.security.model.AuthRequest;
 import com.siva.keyvista.security.service.JwtService;
-import com.siva.keyvista.user.Role;
-import com.siva.keyvista.user.User;
+import com.siva.keyvista.user.model.User;
 import com.siva.keyvista.user.model.UserRequest;
 import com.siva.keyvista.user.service.UserService;
 import lombok.RequiredArgsConstructor;

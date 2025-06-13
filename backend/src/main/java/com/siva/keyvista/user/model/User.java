@@ -1,4 +1,4 @@
-package com.siva.keyvista.user;
+package com.siva.keyvista.user.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

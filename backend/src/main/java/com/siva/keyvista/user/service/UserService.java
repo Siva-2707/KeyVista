@@ -1,8 +1,8 @@
 package com.siva.keyvista.user.service;
 
-import com.siva.keyvista.user.Role;
-import com.siva.keyvista.user.User;
-import com.siva.keyvista.user.UserRespository;
+import com.siva.keyvista.user.model.Role;
+import com.siva.keyvista.user.model.User;
+import com.siva.keyvista.user.repository.UserRespository;
 import com.siva.keyvista.user.model.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
