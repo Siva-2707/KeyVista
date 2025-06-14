@@ -1,35 +1,35 @@
 package com.siva.keyvista.listing.controller;
 
+
 import com.siva.keyvista.listing.model.Listing;
 import com.siva.keyvista.listing.service.ListingService;
 import com.siva.keyvista.util.*;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
-public class ListingController{
-
-    private static final String FETCH_SUCCESS = "Listings fetched successfully.";
+public class ListingAdminController {
 
     private final ListingService listingService;
 
-    @GetMapping("/listings")
-    public KeyVistaResponse<ResponseEntity> getAllListingsByLocation(@RequestBody KeyVistaRequest<Listing> request){
+    private static final String CREATE_SUCCESS = "Listing created successfully.";
+
+    @PostMapping("/create/listing")
+    public KeyVistaResponse<ResponseEntity> createListing(KeyVistaRequest<Listing> request){
             return new KeyVistaResponse<>(
                     HttpStatus.OK,
-                    FETCH_SUCCESS,
+                    CREATE_SUCCESS,
                     new SuccessResponseEntity<>(
                             listingService.getListingsByLocation(request.body().getCity(),request.body().getCountry())
-                                    .orElse(new ArrayList<>())
                     ));
     }
-
 
 }
