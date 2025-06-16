@@ -25,7 +25,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserService userService;
 
-    @PostMapping("/getToken")
+    @PostMapping("/login")
     public String login(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.username(), authRequest.password()));
         if(authentication.isAuthenticated())

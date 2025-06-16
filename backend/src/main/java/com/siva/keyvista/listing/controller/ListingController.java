@@ -23,12 +23,12 @@ public class ListingController{
 
     @GetMapping("/listings")
     @ResponseStatus(HttpStatus.OK)
-    public KeyVistaResponse<ResponseEntity> getAllListingsByLocation(@RequestBody KeyVistaRequest<Listing> request){
+    public KeyVistaResponse<ResponseEntity> getAllListingsByLocation(@RequestParam String city, @RequestParam String country){
             return new KeyVistaResponse<>(
                     HttpStatus.OK,
                     "Listings fetched successfully.",
                     new SuccessResponseEntity<>(
-                            listingService.getListingsByLocation(request.body().getCity(),request.body().getCountry())
+                            listingService.getListingsByLocation(city,country)
                                     .orElse(new ArrayList<>())
                     ));
     }
