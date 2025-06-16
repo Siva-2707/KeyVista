@@ -1,26 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-const handleLogin = (event) => {
-
-    event.preventDefault();
-    console.log("Login form submitted :", event);
-    let userName = event.target[0].value;
-    let password = event.target[1].value;
-    console.log("Username:", userName, "Password:", password);
-
-    //Send it to backend.
-    // For now, just prevent the default form submission behavior
-    
-}
+import axios from '../api/axiosInstace';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+
+    const [invalid, setInvalid] = useState(false);
+    const navigate = useNavigate();
+
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        console.log("Login form submitted :", event);
+        let userName = event.target[0].value;
+        let password = event.target[1].value;
+        console.log("Username:", userName, "Password:", password);
+        try{
+            const response = await axios.post('/auth/login', {"username": userName, "password": password}, {auth: true});
+            localStorage.setItem('token',response.data);
+            navigate(`/listings`);
+        }
+        catch(err){
+            console.log(err);
+            setInvalid(true);
+        }
+       
+    
+    }
+
+
+
   return (
     <div className="flex flex-column justify-between vh-100">
         <div className="basis-[92vw] flex justify-center align-items-center bg-amber-50">
             <div className="w-[40%] p-12 shadow-2xl bg-white rounded-5xl">
                 <Form onSubmit={handleLogin}>
+                    {invalid  && <Form.Text>Invalid Username or Password</Form.Text>}
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
