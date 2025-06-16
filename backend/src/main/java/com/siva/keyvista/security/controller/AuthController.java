@@ -36,6 +36,6 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody UserRequest userRequest) {
         User createdUser = userService.createUser(userRequest);
-        return jwtService.generateToken(createdUser.getUsername());
+        return jwtService.generateToken(createdUser.getEmail());
     }
 }

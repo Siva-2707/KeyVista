@@ -62,7 +62,7 @@ class AuthControllerTest {
         UserRequest userRequest = new UserRequest("email", "pass", "First", "Last");
         User user = mock(User.class);
         when(userService.createUser(userRequest)).thenReturn(user);
-        when(user.getUsername()).thenReturn("email");
+        when(user.getEmail()).thenReturn("email");
         when(jwtService.generateToken("email")).thenReturn("jwt-token");
 
         String result = authController.register(userRequest);
