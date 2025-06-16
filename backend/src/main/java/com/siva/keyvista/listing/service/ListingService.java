@@ -4,10 +4,8 @@ import com.siva.keyvista.listing.model.Listing;
 import com.siva.keyvista.listing.repository.ListingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.MessageFormat;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +22,13 @@ public class ListingService {
     }
 
     public Listing createListing(Listing listing){
+        listing.setDateTimePosted(new Date());
         return listingRepository.save(listing);
     }
 
+    public Listing getListing(Integer id) {
+        return listingRepository.findById(id)
+                .orElseThrow(() ->  new NoSuchElementException(
+                        MessageFormat.format("Listing with id - {0} not found", id)));
+    }
 }

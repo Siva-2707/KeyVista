@@ -1,9 +1,6 @@
 package com.siva.keyvista.listing.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.format.DateTimeFormatter;
@@ -37,7 +34,7 @@ public class Listing {
     private Status status;
     private Double price;
     private String description;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Link> media;
     private Date dateTimePosted;
     private Date dateTimeUpdated;
