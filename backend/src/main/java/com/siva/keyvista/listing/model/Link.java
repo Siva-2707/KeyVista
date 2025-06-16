@@ -18,6 +18,4 @@ public class Link {
     @GeneratedValue
     private Integer id;
     private String url;
-    @ManyToOne
-    private Listing listing;
 }
