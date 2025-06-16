@@ -31,6 +31,7 @@ public class Listing {
     private String address;
     private String city;
     private String country;
+    @Enumerated(EnumType.STRING)
     private Status status;
     private Double price;
     private String description;

@@ -59,7 +59,7 @@ class AuthControllerTest {
 
     @Test
     void register_shouldCreateUserAndReturnToken() {
-        UserRequest userRequest = new UserRequest("email", "pass", "First", "Last");
+        UserRequest userRequest = new UserRequest("email", "pass", "First", "Last", false);
         User user = mock(User.class);
         when(userService.createUser(userRequest)).thenReturn(user);
         when(user.getEmail()).thenReturn("email");

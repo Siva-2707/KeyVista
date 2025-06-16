@@ -16,8 +16,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public User createUser(UserRequest userRequest){
+
         User user = User.builder()
-                .role(Role.USER)
+                .role((userRequest.isAdmin() !=null && userRequest.isAdmin() ) ? Role.ADMIN : Role.USER)
                 .email(userRequest.email())
                 .password(passwordEncoder.encode(userRequest.password()))
                 .name(String.join(userRequest.firstName()," ", userRequest.lastName()))

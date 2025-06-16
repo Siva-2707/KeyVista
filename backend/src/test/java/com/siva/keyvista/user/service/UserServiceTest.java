@@ -28,7 +28,7 @@ class UserServiceTest {
     @Test
     void createUser_shouldSaveUserWithEncodedPasswordAndUserRole() {
         // Arrange
-        UserRequest userRequest = new UserRequest("john.doe@example.com", "password123", "John", "Doe");
+        UserRequest userRequest = new UserRequest("john.doe@example.com", "password123", "John", "Doe", false);
         String encodedPassword = "encodedPassword";
         when(passwordEncoder.encode("password123")).thenReturn(encodedPassword);
 
