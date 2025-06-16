@@ -11,7 +11,6 @@ import {useState, useEffect} from 'react';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [location, setLocation] = useState({ "city": null, "country": null });
 
   useEffect(() => {
@@ -29,43 +28,38 @@ function App() {
     });
   },[])
 
-  const handleLogout = () => {
-    // Clear tokens or session here
-    setIsLoggedIn(false);
-  };
-
   const router = createBrowserRouter([
     {
       path: "/login",
       element: <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Header/>
         <Login/>
       </div>
     },
     {
       path: "/signup",
       element: <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Header/>
         <SignUp/>
       </div>
     },
     {
       path: "/",
       element: <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Header/>
         <Home/>
       </div>
     },{
       path: "/listings",
       element: <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Header/>
         <ListingPage location={location}/>
       </div>
     },
     {
       path: "/listings/:id",
       element: <div>
-        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <Header/>
         <ListingDetail/>
       </div>
     }

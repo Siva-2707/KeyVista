@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from '../api/axiosInstace';
 import { useNavigate } from 'react-router';
+import AppContext from '../context/AppContext';
 
 const Login = () => {
 
     const [invalid, setInvalid] = useState(false);
     const navigate = useNavigate();
-
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+    const {setIsLoggedIn} = useContext(AppContext);
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -20,6 +20,8 @@ const Login = () => {
         try{
             const response = await axios.post('/auth/login', {"username": userName, "password": password}, {auth: true});
             localStorage.setItem('token',response.data);
+            localStorage.setItem('isLoggedIn', true);
+            setIsLoggedIn(true);
             navigate(`/listings`);
         }
         catch(err){

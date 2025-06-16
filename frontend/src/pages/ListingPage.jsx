@@ -60,7 +60,7 @@ const ListingPage = ({ location }) => {
             onClick={() => navigate(`/listings/${listing.id}`)}
           >
             <img
-              src={listing.image}
+              src={listing.media[0].url}
               alt={listing.name}
               className="w-full h-48 object-cover rounded-t-lg"
             />

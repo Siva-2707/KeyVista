@@ -9,7 +9,7 @@ const Home = () => {
         <div className="relative text-center text-white px-4 max-w-2xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">Find Your Dream Home</h1>
           <p className="text-lg md:text-xl mb-8">Browse listings, book viewings, and connect with realtors — all in one place.</p>
-          <a href="/listings" className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl text-lg transition">Explore Listings</a>
+          {/* <a href="/listings" className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl text-lg transition">Explore Listings</a> */}
         </div>
       </div>
 
