@@ -23,7 +23,6 @@ const handleSignUp = (event) => {
 const SignUp = () => {
   return (
     <div className="flex flex-column justify-between vh-100">
-        <div className='basis-[8vw]'>Header</div>
         <div className="basis-[92vw] flex justify-center align-items-center bg-amber-50">
             <div className="w-[40%] p-12 shadow-2xl bg-white rounded-5xl">
                 <Form onSubmit={handleSignUp}>
@@ -31,10 +30,8 @@ const SignUp = () => {
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
                         <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
                         </Form.Text>
                     </Form.Group>
-
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" />
