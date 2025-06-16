@@ -25,8 +25,8 @@ public class WebSecurityConfig {
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                     .requestMatchers("/","/auth/**").permitAll()
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .requestMatchers("/api/**").hasAnyRole( "USER","ADMIN")
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
