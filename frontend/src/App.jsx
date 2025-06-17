@@ -11,22 +11,6 @@ import {useState, useEffect} from 'react';
 
 function App() {
 
-  const [location, setLocation] = useState({ "city": null, "country": null });
-
-  useEffect(() => {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-      const { latitude, longitude } = pos.coords;
-      console.log(`Latitude: ${latitude}, Longitude: ${longitude}`)
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`);
-      const data = await res.json();
-      const city = data.address.city || data.address.town || data.address.village;
-      const country = data.address.country;
-      // console.log(`${city}, ${country}`);
-      setLocation({"city": city, "country": country});
-    }, (err) => {
-      console.error('Error getting location', err);
-    });
-  },[])
 
   const router = createBrowserRouter([
     {
@@ -53,7 +37,7 @@ function App() {
       path: "/listings",
       element: <div>
         <Header/>
-        <ListingPage location={location}/>
+        <ListingPage/>
       </div>
     },
     {

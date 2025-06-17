@@ -12,8 +12,8 @@ const ListingDetail = () => {
     const loadListingById = async (listingId) => {
       try {
         const response = await axios.get(`/api/listing/${listingId}`);
-        console.log("Response:", response.data.body.data);
-        setListing(response.data.body.data);
+        console.log("Response:", response?.data?.body);
+        setListing(response?.data?.body);
       } catch (error) {
         console.error("Failed to fetch listing", error);
       }
