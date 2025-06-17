@@ -20,15 +20,16 @@ public class ListingAdminController {
     private final ListingService listingService;
 
     private static final String CREATE_SUCCESS = "Listing created successfully.";
+    private static final String EDIT_SUCCESS = "Listing updated successfully.";
 
     @PostMapping("/create/listing")
     @ResponseStatus(HttpStatus.CREATED)
-    public KeyVistaResponse<ResponseEntity> createListing(@RequestBody KeyVistaRequest<Listing> request){
+    public KeyVistaResponse<Listing> createListing(@RequestBody KeyVistaRequest<Listing> request){
             return new KeyVistaResponse<>(
                     HttpStatus.OK,
                     CREATE_SUCCESS,
-                    new SuccessResponseEntity<>(
-                            listingService.createListing(request.body()))
-                    );
+                    listingService.createListing(request.body()));
     }
+
+
 }

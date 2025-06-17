@@ -17,8 +17,8 @@ public class ListingService {
         return listingRepository.findAll();
     }
 
-    public Optional<List<Listing>> getListingsByLocation(String city, String country){
-            return listingRepository.findListingByCityOrCountry(city, country);
+    public List<Listing> getListingsByLocation(String city, String country){
+            return listingRepository.findListingByCityOrCountry(city, country).orElse(new ArrayList<>());
     }
 
     public Listing createListing(Listing listing){

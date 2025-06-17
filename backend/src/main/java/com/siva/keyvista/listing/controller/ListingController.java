@@ -23,23 +23,20 @@ public class ListingController{
 
     @GetMapping("/listings")
     @ResponseStatus(HttpStatus.OK)
-    public KeyVistaResponse<ResponseEntity> getAllListingsByLocation(@RequestParam String city, @RequestParam String country){
+    public KeyVistaResponse<List<Listing>> getAllListingsByLocation(@RequestParam String city, @RequestParam String country){
             return new KeyVistaResponse<>(
                     HttpStatus.OK,
                     "Listings fetched successfully.",
-                    new SuccessResponseEntity<>(
-                            listingService.getListingsByLocation(city,country)
-                                    .orElse(new ArrayList<>())
-                    ));
+                    listingService.getListingsByLocation(city,country));
     }
 
     @GetMapping("/listing/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public KeyVistaResponse<ResponseEntity> getListingById(@PathVariable Integer id){
+    public KeyVistaResponse<Listing> getListingById(@PathVariable Integer id){
         return new KeyVistaResponse<>(
                 HttpStatus.OK,
                 "Listing fetched successfully.",
-                new SuccessResponseEntity<>(listingService.getListing(id)));
+                listingService.getListing(id));
     }
 
 

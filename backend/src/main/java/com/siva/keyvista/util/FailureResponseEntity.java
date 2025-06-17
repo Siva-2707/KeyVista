@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class FailureResponseEntity implements ResponseEntity{
+public class FailureResponseEntity{
 
     private String message;
     private String exceptionType;
