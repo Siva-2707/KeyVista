@@ -8,6 +8,7 @@ import ListingPage from './pages/ListingPage';
 import ListingDetail from './pages/ListingDetail';
 import { Router, RouterProvider,createBrowserRouter } from 'react-router';
 import {useState, useEffect} from 'react';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
@@ -32,19 +33,20 @@ function App() {
       element: <div>
         <Header/>
         <Home/>
+        
       </div>
     },{
       path: "/listings",
       element: <div>
         <Header/>
-        <ListingPage/>
+        <ProtectedRoute><ListingPage/></ProtectedRoute>
       </div>
     },
     {
       path: "/listings/:id",
       element: <div>
         <Header/>
-        <ListingDetail/>
+        <ProtectedRoute><ListingDetail/></ProtectedRoute>
       </div>
     }
   ]);

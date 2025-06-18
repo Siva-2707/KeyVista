@@ -20,7 +20,7 @@ const Header = () => {
     <header className="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-blue-600">
+        <Link to={isLoggedIn ? "/listings" : "/"} className="text-2xl font-bold text-blue-600">
           KeyVista
         </Link>
 
