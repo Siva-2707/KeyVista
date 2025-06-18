@@ -1,5 +1,6 @@
 package com.siva.keyvista.user.service;
 
+import com.siva.keyvista.exception.custom.AlreadyExistException;
 import com.siva.keyvista.user.model.Role;
 import com.siva.keyvista.user.model.User;
 import com.siva.keyvista.user.repository.UserRespository;
@@ -16,14 +17,25 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public User createUser(UserRequest userRequest){
+        //Check if the user is already present
+        String username = userRequest.email();
+        if(checkUsernameExists(username))
+            throw new AlreadyExistException(String.format("User already exit with this username: %s",username));
 
-        User user = User.builder()
+        return userRespository.save(getUserFromUserRequest(userRequest));
+    }
+
+    public Boolean checkUsernameExists(String username){
+        return userRespository.findByEmail(username).isPresent();
+    }
+
+    public User getUserFromUserRequest(UserRequest userRequest){
+        return User.builder()
                 .role((userRequest.isAdmin() !=null && userRequest.isAdmin() ) ? Role.ADMIN : Role.USER)
                 .email(userRequest.email())
                 .password(passwordEncoder.encode(userRequest.password()))
                 .name(String.join(userRequest.firstName()," ", userRequest.lastName()))
                 .build();
-        return userRespository.save(user);
     }
 
 

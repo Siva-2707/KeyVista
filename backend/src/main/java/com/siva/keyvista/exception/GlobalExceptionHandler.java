@@ -1,5 +1,6 @@
 package com.siva.keyvista.exception;
 
+import com.siva.keyvista.exception.custom.AlreadyExistException;
 import com.siva.keyvista.util.FailureResponseEntity;
 import com.siva.keyvista.util.KeyVistaResponse;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public KeyVistaResponse<?> handleGenericException(Exception ex) {
+    public KeyVistaResponse<FailureResponseEntity> handleGenericException(Exception ex) {
         return new KeyVistaResponse<>(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 "EXECUTION_FAILED",
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public KeyVistaResponse<?> handleIllegalArgument(IllegalArgumentException ex) {
+    public KeyVistaResponse<FailureResponseEntity> handleIllegalArgument(IllegalArgumentException ex) {
         return new KeyVistaResponse<>(
                 HttpStatus.BAD_REQUEST,
                 "INVALID_ARGUMENT",
@@ -35,10 +36,21 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public KeyVistaResponse<?> handleNoSuchElementException(NoSuchElementException ex) {
+    public KeyVistaResponse<FailureResponseEntity> handleNoSuchElementException(NoSuchElementException ex) {
         return new KeyVistaResponse<>(
                 HttpStatus.NOT_FOUND,
                 "NOT_FOUND",
+                new FailureResponseEntity(ex)
+        );
+    }
+
+
+    @ExceptionHandler(AlreadyExistException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public KeyVistaResponse<FailureResponseEntity> handleUsernameAlreadyExistsException(AlreadyExistException ex){
+        return new KeyVistaResponse<>(
+                HttpStatus.CONFLICT,
+                "Username already exists",
                 new FailureResponseEntity(ex)
         );
     }
