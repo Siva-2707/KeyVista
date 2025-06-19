@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 // import AppContext from '../context/AppContext'
 
-const ListingCard = ({listing , key}) => {
+const ListingCard = ({listing}) => {
 
   const navigate = useNavigate();
     // const {isAdmin} = useContext(AppContext);
@@ -13,7 +13,6 @@ const ListingCard = ({listing , key}) => {
   return (
     <div className="border rounded-lg shadow hover:shadow-xl">
         <div
-            key={key}
             className="cursor-pointer"
             onClick={() => navigate(`/listings/${listing.id}`)}>
             <img
