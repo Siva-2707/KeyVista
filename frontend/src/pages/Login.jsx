@@ -19,8 +19,14 @@ const Login = () => {
         console.log("Username:", userName, "Password:", password);
         try{
             const response = await axios.post('/auth/login', {"username": userName, "password": password}, {auth: true});
+            //Check if valid token. 
+
+            //Get role from token and set it in context.
+
+
             localStorage.setItem('token',response.data);
             localStorage.setItem('isLoggedIn', true);
+            
             setIsLoggedIn(true);
             navigate(`/listings`);
         }

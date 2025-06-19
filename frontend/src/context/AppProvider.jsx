@@ -5,11 +5,11 @@ import AppContext from './AppContext';
 const AppProvider = ({ children }) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
     <AppContext.Provider
-      value={{isLoggedIn, setIsLoggedIn }}
+      value={{isLoggedIn, setIsLoggedIn, isAdmin}}
     >
       {children}
     </AppContext.Provider>
