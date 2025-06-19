@@ -9,7 +9,7 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{isLoggedIn, setIsLoggedIn, isAdmin}}
+      value={{isLoggedIn, setIsLoggedIn, isAdmin, setIsAdmin}}
     >
       {children}
     </AppContext.Provider>

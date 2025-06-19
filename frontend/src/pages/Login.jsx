@@ -15,21 +15,28 @@ const Login = () => {
 
     const [invalid, setInvalid] = useState(false);
     const navigate = useNavigate();
-    const {setIsLoggedIn} = useContext(AppContext);
+    const {setIsLoggedIn, setIsAdmin} = useContext(AppContext);
 
     const handleLogin = async (values, {setSubmitting}) => {
         try{
             const response = await axios.post('/auth/login', {"username": values.email, "password": values.password}, {auth: true});
-            //Check if valid token. 
-
+            const token = response.data;
+            //Check if valid token.
+            const validTokenResponse = await axios.post(`/auth/token/validate?username=${values.email}&token=${token}`);
+            const isTokenValid = validTokenResponse?.data;
             //Get role from token and set it in context.
-
-
-            localStorage.setItem('token',response.data);
-            localStorage.setItem('isLoggedIn', true);
-            
-            setIsLoggedIn(true);
-            navigate(`/listings`);
+            if(isTokenValid){
+                const userRoleResponse = await axios.get(`/auth/token/role?token=${token}`);
+                const isAdmin = userRoleResponse?.data.toUpperCase() == 'ADMIN';
+                setIsAdmin(isAdmin);
+                localStorage.setItem('token',token);
+                localStorage.setItem('isLoggedIn', true);
+                setIsLoggedIn(true);
+                navigate(`/listings`);
+            }
+            else{
+                setInvalid(true);
+            }
         }
         catch(err){
             console.log(err);

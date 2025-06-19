@@ -6,6 +6,7 @@ import com.siva.keyvista.user.model.User;
 import com.siva.keyvista.user.repository.UserRespository;
 import com.siva.keyvista.user.model.UserRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,11 @@ public class UserService {
             throw new AlreadyExistException(String.format("User already exit with this username: %s",username));
 
         return userRespository.save(getUserFromUserRequest(userRequest));
+    }
+
+    public User getUserFromUsername(String username){
+        return userRespository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User not found with email: %s",username)));
     }
 
     public Boolean checkUsernameExists(String username){

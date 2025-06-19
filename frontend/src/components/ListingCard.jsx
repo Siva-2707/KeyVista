@@ -1,20 +1,20 @@
 import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
-// import AppContext from '../context/AppContext'
+import AppContext from '../context/AppContext'
 
 const ListingCard = ({listing}) => {
 
   const navigate = useNavigate();
-    // const {isAdmin} = useContext(AppContext);
+    const {isAdmin} = useContext(AppContext);
   const handleEdit = () => {
     console.log("Hello");
   }
   return (
     <div className="border rounded-lg shadow hover:shadow-xl">
         <div
-            className="cursor-pointer"
-            onClick={() => navigate(`/listings/${listing.id}`)}>
+            className={isAdmin ? "" : "cursor-pointer"}
+            onClick={() => isAdmin ? "" : navigate(`/listings/${listing.id}`)}>
             <img
             src={listing.media?.[0]?.url || "https://via.placeholder.com/400x300"}
             alt={listing.name}
@@ -27,10 +27,11 @@ const ListingCard = ({listing}) => {
                 </p>
             </div>
         </div>
+        {isAdmin && 
         <div className='flex p-4 justify-end gap-2'>
-            <Button variant="primary" onClick={handleEdit}>Edit</Button>
-            <Button variant="danger">Delete</Button>
-        </div>
+          <Button variant="primary" onClick={handleEdit}>Edit</Button>
+          <Button variant="danger">Delete</Button>
+        </div>}
     </div>
   )
 }

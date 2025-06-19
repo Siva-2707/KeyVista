@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "../api/axiosInstace";
 import ListingCard from "../components/ListingCard";
 import { Modal, Button, Form } from "react-bootstrap";
 import ListingModel from "../components/ListingModel";
+import AppContext from "../context/AppContext";
 
 const ListingPage = () => {
   const [search, setSearch] = useState("");
@@ -11,11 +11,8 @@ const ListingPage = () => {
   const [listing, setListing] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
   const [showModal, setShowModal] = useState(false);
-
-
-  const navigate = useNavigate();
+  const {isAdmin} = useContext(AppContext);
 
   const fetchLocation = async () => {
     try {
@@ -81,7 +78,7 @@ const ListingPage = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="w-[80%] p-3 border rounded-lg"
         />
-        <Button onClick={() => setShowModal(true)}>Create Listing</Button>
+        {isAdmin && <Button onClick={() => setShowModal(true)}>Create Listing</Button>}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
