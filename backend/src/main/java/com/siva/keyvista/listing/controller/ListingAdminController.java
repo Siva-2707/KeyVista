@@ -8,10 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
@@ -29,6 +25,25 @@ public class ListingAdminController {
                     HttpStatus.OK,
                     CREATE_SUCCESS,
                     listingService.createListing(request.body()));
+    }
+
+    @PostMapping("/update/listing")
+    @ResponseStatus(HttpStatus.OK)
+    public KeyVistaResponse<Listing> updateListing(@RequestBody KeyVistaRequest<Listing> request){
+        return new KeyVistaResponse<>(
+                HttpStatus.OK,
+                EDIT_SUCCESS,
+                listingService.updateListing(request.body()));
+    }
+
+    @PostMapping("/delete/listing")
+    @ResponseStatus(HttpStatus.OK)
+    public KeyVistaResponse<String> deleteListing(@RequestParam Integer id){
+        listingService.deleteListing(id);
+        return new KeyVistaResponse<>(
+                HttpStatus.OK,
+                "Listing deleted successfully.",
+                "Listing with id - " + id + " deleted successfully.");
     }
 
 

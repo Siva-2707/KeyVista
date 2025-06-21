@@ -31,4 +31,23 @@ public class ListingService {
                 .orElseThrow(() ->  new NoSuchElementException(
                         MessageFormat.format("Listing with id - {0} not found", id)));
     }
+
+    public Listing updateListing(Listing listing){
+        Listing existingListing = getListing(listing.getId());
+        existingListing.setName(listing.getName());
+        existingListing.setAddress(listing.getAddress());
+        existingListing.setCity(listing.getCity());
+        existingListing.setCountry(listing.getCountry());
+        existingListing.setStatus(listing.getStatus());
+        existingListing.setPrice(listing.getPrice());
+        existingListing.setDescription(listing.getDescription());
+        existingListing.setMedia(listing.getMedia());
+        existingListing.setDateTimeUpdated(new Date());
+        return listingRepository.save(existingListing);
+    }
+
+    public void deleteListing(Integer id) {
+        Listing listing = getListing(id);
+        listingRepository.delete(listing);
+    }
 }
