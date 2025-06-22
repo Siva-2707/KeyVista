@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mydb
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keyvista_local
+    ports:
+      - "3306:3306"
+  
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_MODE=${VITE_MODE:-docker}
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    container_name: keyvista-frontend
+    # restart: unless-stopped
+  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: keyvista-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILE: ${SPRING_PROFILE:-docker}
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      JWT_SECRET: pRTEdZpNZjQc/nzYEUOx7MxRfbDksjHZtgoZ9Nvmj/Gw9EJg/t0mx5+M44vRC181
+
+    # restart: unless-stopped
