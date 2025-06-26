@@ -6,23 +6,21 @@ WORKDIR /app
 # Install dependencies
 COPY package.json package-lock.json ./
 RUN npm ci
-COPY .env.aws ./
-# Copy source files and build
+
+# Copy source files
 COPY . .
-RUN npm run build --mode ${VITE_MODE}
+
+# Inject build arg into env file dynamically
+ARG VITE_BACKEND_URL
+RUN echo "VITE_BACKEND_URL=$VITE_BACKEND_URL" > .env
+RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine
 
-# Remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
-
-# Copy built assets
 COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Copy custom nginx config (optional)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
