@@ -6,7 +6,7 @@ WORKDIR /app
 # Install dependencies
 COPY package.json package-lock.json ./
 RUN npm ci
-
+COPY .env.aws ./
 # Copy source files and build
 COPY . .
 RUN npm run build --mode ${VITE_MODE}
