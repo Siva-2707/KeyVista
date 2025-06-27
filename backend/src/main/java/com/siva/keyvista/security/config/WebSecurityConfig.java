@@ -50,7 +50,7 @@ public class WebSecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         System.out.println("Front End URL: " + frontEndUrl);
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("*"));
+        config.setAllowedOrigins(List.of(frontEndUrl));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
