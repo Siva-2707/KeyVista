@@ -11,10 +11,8 @@ FROM nginx:alpine
 # Copy built React app
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy nginx template
+# Copy nginx template and entrypoint script
 COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
-
-# Use entrypoint script to replace placeholder
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

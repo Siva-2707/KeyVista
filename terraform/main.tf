@@ -293,14 +293,14 @@ resource "aws_launch_template" "frontend_lt" {
     api_url=$(echo $secret | jq -r '.backend_alb_endpoint')
 
     cd /opt/keyvista/frontend
-    # Build image with env var
+
+    # Build Docker image
     sudo docker build -t keyvista-frontend .
 
-
-    # Run container
+    # Run container with environment variable
     sudo docker run -d -p 80:80 \
-    -e VITE_BACKEND_URL="http://$api_url:8080" \
-    keyvista-frontend
+      -e VITE_BACKEND_URL="http://$api_url:8080" \
+      keyvista-frontend
 
   EOF
   )
