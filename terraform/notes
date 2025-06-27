@@ -1,0 +1,5 @@
+aws secretsmanager restore-secret --secret-id keyvista/secrets
+
+
+terraform import aws_secretsmanager_secret.app_secrets keyvista/secrets
+terraform import aws_secretsmanager_secret_version.app_secrets_initial keyvista/secrets
