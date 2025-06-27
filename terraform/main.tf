@@ -294,7 +294,12 @@ resource "aws_launch_template" "frontend_lt" {
     sudo docker build -t keyvista-frontend .
 
     # Run container with environment variable
-    sudo docker run -d --name keyvista-frontend -p 80:80 keyvista-frontend
+    sudo docker run -d --name keyvista-frontend -p 80:80 \
+    --log-driver=awslogs \
+    --log-opt awslogs-region=us-east-1 \
+    --log-opt awslogs-group=/ec2/frontend \
+    --log-opt awslogs-stream=frontend-$(hostname) \
+    keyvista-frontend
 
   EOF
   )
@@ -433,7 +438,13 @@ resource "aws_launch_template" "backend_lt" {
     sudo systemctl start docker
     cd /opt/keyvista/backend
     sudo docker build -t keyvista-backend .
-    sudo docker run -d -p 8080:8080 --name keyvista-backend -e SPRING_PROFILE=aws keyvista-backend
+    # Run container with environment variable
+    sudo docker run -d --name keyvista-backend -p 80:80 \
+    --log-driver=awslogs \
+    --log-opt awslogs-region=us-east-1 \
+    --log-opt awslogs-group=/ec2/backend \
+    --log-opt awslogs-stream=backend-$(hostname) \
+    keyvista-backend
   EOF
   )
 }
