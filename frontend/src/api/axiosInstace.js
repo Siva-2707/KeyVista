@@ -10,9 +10,10 @@ instance.interceptors.request.use(
     console.log(config);
 
     if(!config.auth){
-        console.log("Going in")
+        console.log("Getting token from localStorage");
         const token = localStorage.getItem("token");
         if (token) {
+        console.log("Token found, attaching to request");
         config.headers.Authorization = `Bearer ${token}`;
     }
     }

@@ -21,6 +21,7 @@ const Login = () => {
         try{
             const response = await axios.post('/auth/login', {"username": values.email, "password": values.password}, {auth: true});
             const token = response.data;
+            console.log("Token received: ", token);
             //Check if valid token.
             const validTokenResponse = await axios.post(`/auth/token/validate?username=${values.email}&token=${token}`);
             const isTokenValid = validTokenResponse?.data;

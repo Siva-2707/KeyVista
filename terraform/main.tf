@@ -284,23 +284,17 @@ resource "aws_launch_template" "frontend_lt" {
   user_data     = base64encode(<<-EOF
     #!/bin/bash
     sudo systemctl start docker
-
-    # Install AWS CLI (if AMI doesn't include it)
-    yum install -y aws-cli jq
-
-    # Fetch secret from Secrets Manager
-    secret=$(aws secretsmanager get-secret-value --region ${var.region} --secret-id keyvista/secrets --query SecretString --output text)
-    api_url=$(echo $secret | jq -r '.backend_alb_endpoint')
-
-    cd /opt/keyvista/frontend
+    
+    cat > /opt/keyvista/frontend/.env <<EOL
+    VITE_BACKEND_URL="http://${aws_lb.backend_alb.dns_name}:8080"
+    EOL
 
     # Build Docker image
+    cd /opt/keyvista/frontend
     sudo docker build -t keyvista-frontend .
 
     # Run container with environment variable
-    sudo docker run -d -p 80:80 \
-      -e VITE_BACKEND_URL="http://$api_url:8080" \
-      keyvista-frontend
+    sudo docker run -d --name keyvista-frontend -p 80:80 keyvista-frontend
 
   EOF
   )
