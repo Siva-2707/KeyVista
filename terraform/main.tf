@@ -519,7 +519,7 @@ resource "aws_secretsmanager_secret_version" "app_secrets_initial" {
   secret_string = jsonencode({
     "db_username"   = "root",
     "db_password"   = "SecurePass123#!",
-    "frontend_alb_endpoint" = aws_lb.frontend_alb.dns_name,
+    "frontend_alb_endpoint" = local.frontend_alb_endpoint_url,
     "backend_alb_endpoint"  = aws_lb.backend_alb.dns_name,
     "jwt_secret_key" = "pRTEdZpNZjQc/nzYEUOx7MxRfbDksjHZtgoZ9Nvmj/Gw9EJg/t0mx5+M44vRC181",
     "sns_topic_arn" = aws_sns_topic.notification_topic.arn
@@ -545,7 +545,7 @@ resource "aws_db_instance" "main_db" {
 
 locals {
   jdbc_url = "jdbc:mysql://${aws_db_instance.main_db.address}:${aws_db_instance.main_db.port}/${aws_db_instance.main_db.db_name}?useSSL=false&allowPublicKeyRetrieval=true"
-  frontend_alb_endpoint_url = "http://${aws_lb.frontend_alb.dns_name}:80"
+  frontend_alb_endpoint_url = "http://${aws_lb.frontend_alb.dns_name}"
 }
 
 
