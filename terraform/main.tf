@@ -439,7 +439,7 @@ resource "aws_launch_template" "backend_lt" {
     cd /opt/keyvista/backend
     sudo docker build -t keyvista-backend .
     # Run container with environment variable
-    sudo docker run -d --name keyvista-backend -p 80:80 \
+    sudo docker run -d --name keyvista-backend -p 8080:8080 -e SPRING_PROFILE=aws \
     --log-driver=awslogs \
     --log-opt awslogs-region=us-east-1 \
     --log-opt awslogs-group=/ec2/backend \
