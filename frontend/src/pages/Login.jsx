@@ -33,7 +33,7 @@ const Login = () => {
                 localStorage.setItem('token',token);
                 localStorage.setItem('isLoggedIn', true);
                 setIsLoggedIn(true);
-                navigate(`/listings`);
+                navigate(`/dashboard`);
             }
             else{
                 setInvalid(true);

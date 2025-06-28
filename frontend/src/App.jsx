@@ -9,6 +9,8 @@ import ListingDetail from './pages/ListingDetail';
 import { Router, RouterProvider,createBrowserRouter } from 'react-router';
 import {useState, useEffect} from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
+import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard';
 
 function App() {
 
@@ -26,6 +28,20 @@ function App() {
       element: <div>
         <Header/>
         <SignUp/>
+      </div>
+    },
+    {
+      path: "/dashboard",
+      element: <div>
+        <Header/>
+        <Dashboard/>
+      </div>
+    },
+    {
+      path: "/contact",
+      element: <div>
+        <Header/>
+        <Contact/>
       </div>
     },
     {

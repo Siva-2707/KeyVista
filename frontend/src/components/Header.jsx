@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import AppContext from "../context/AppContext";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  const {isLoggedIn, setIsLoggedIn} = useContext(AppContext);
+  const {isLoggedIn, setIsLoggedIn, isAdmin} = useContext(AppContext);
 
   useEffect( () => {
     setIsLoggedIn(localStorage.getItem('isLoggedIn'));
@@ -25,12 +25,42 @@ const Header = () => {
         </Link>
 
         {/* Navigation */}
-        {isLoggedIn && <nav className="space-x-6 text-gray-700 font-medium hidden md:block">
-          {/* <Link to="/" className="hover:text-blue-600">Home</Link> */}
-          <Link to="/listings" className="hover:text-blue-600">Listings</Link>
-          <Link to="/contact" className="hover:text-blue-600">Contact</Link>
-          <Link to="/dashboard" className="hover:text-blue-600">Dashboard</Link>
-        </nav> }
+
+     
+
+                {isLoggedIn && (
+          <nav className="space-x-6 text-gray-700 font-medium hidden md:block">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive ? "text-blue-600 font-bold underline" : "hover:text-blue-600"
+              }
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
+              to="/listings"
+              className={({ isActive }) =>
+                isActive ? "text-blue-600 font-bold underline" : "hover:text-blue-600"
+              }
+            >
+              {isAdmin ? "Manage Listings" : "Listing"}
+            </NavLink>
+            {!isAdmin && (
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  isActive ? "text-blue-600 font-bold underline" : "hover:text-blue-600"
+                }
+              >
+                Contact
+              </NavLink>
+            )}
+          </nav>
+        )}
+
+
+        
 
         {/* Auth Buttons */}
         <div className="flex items-center gap-4">
