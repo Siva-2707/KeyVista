@@ -84,14 +84,14 @@ const ListingPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {Array.isArray(filtered) && filtered.length > 0 ? (
           filtered.map((listing) => (
-            <ListingCard listing={listing} key={listing.id} />
+            <ListingCard listing={listing} key={listing.id} setListing={setListing} setFiltered={setFiltered} />
           ))
         ) : (
           <h2>No Listings</h2>
         )}
       </div>
 
-        <ListingModel showModal={showModal} setShowModal={setShowModal}/>
+        <ListingModel showModal={showModal} setShowModal={setShowModal} setListing={setListing} setFiltered={setFiltered}/>
     </div>
   );
 };

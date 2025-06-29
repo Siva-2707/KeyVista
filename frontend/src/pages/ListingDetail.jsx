@@ -28,6 +28,11 @@ const ListingDetail = () => {
     alert(`Booking scheduled for ${date}`);
   };
 
+  const handleFavorite = () => {
+    
+    setIsFavorite((prev) => !prev)
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">{listing.name}</h1>
@@ -44,7 +49,7 @@ const ListingDetail = () => {
       </p>
 
       <button
-        onClick={() => setIsFavorite((prev) => !prev)}
+        onClick={handleFavorite}
         className={`px-4 py-2 rounded-lg mr-4 ${
           isFavorite ? "bg-red-500 text-white" : "bg-gray-200"
         }`}
