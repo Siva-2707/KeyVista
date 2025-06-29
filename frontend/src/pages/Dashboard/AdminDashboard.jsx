@@ -1,3 +1,4 @@
+import axios from "../../api/axiosInstace.js"; // Adjust the import path as necessary
 import React, { useEffect, useState } from "react";
 
 const AdminDashboard = () => {
@@ -6,26 +7,22 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   // Replace these URLs with your actual backend endpoints
-  const ENQUIRIES_API = "/api/enquiries";
-  const BOOKINGS_API = "/api/bookings/upcoming";
-
+  const ENQUIRIES_API = "/api/query";
+  // const BOOKINGS_API = "/api/bookings/upcoming";
+  console.log("Enquiries API:", ENQUIRIES_API);
   useEffect(() => {
+
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [enqRes, bookRes] = await Promise.all([
-          fetch(ENQUIRIES_API),
-          fetch(BOOKINGS_API),
-        ]);
-        const [enqData, bookData] = await Promise.all([
-          enqRes.json(),
-          bookRes.json(),
-        ]);
+        const enqRes = await axios.get(ENQUIRIES_API);
+        const enqData = await enqRes.data;
         setEnquiries(enqData);
-        setBookings(bookData);
+        // setBookings(bookData);
       } catch (err) {
+        console.error("Failed to fetch enquiries:", err);
         setEnquiries([]);
-        setBookings([]);
+        // setBookings([]);
       }
       setLoading(false);
     };

@@ -7,7 +7,7 @@ const instance = axios.create({
 // Attach token to every request
 instance.interceptors.request.use(
   (config) => {
-    console.log(config);
+    // console.log(config);
 
     if(!config.auth){
         console.log("Getting token from localStorage");

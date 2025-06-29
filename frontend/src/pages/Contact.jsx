@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "../api/axiosInstace"; // Adjust the import path as necessary
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -12,11 +13,15 @@ const Contact = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would send the form data to your backend or an email service
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await axios.post("/api/query", form);
     setSubmitted(true);
-  };
+  } catch (err) {
+    alert("Failed to send your message. Please try again.");
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
